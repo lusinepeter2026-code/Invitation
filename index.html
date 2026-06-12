@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <style>
         :root {
             --bg-color: #0d0d0d;
@@ -28,19 +30,45 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Noto Serif Armenian', serif; /* Elegant Armenian Font */
+            font-family: 'Noto Serif Armenian', serif;
             -webkit-font-smoothing: antialiased;
             display: flex;
             justify-content: center;
             overflow-x: hidden;
         }
 
-        h1, h2, h3 {
-            font-weight: normal;
+        h1, h2, h3 { font-weight: normal; }
+        .names-en { font-family: 'Playfair Display', serif; }
+
+        /* ---------------- FALLING PARTICLES (Hearts & Flowers) ---------------- */
+        #particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1; /* Above background, behind content */
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            top: -10%;
+            color: rgba(212, 175, 55, 0.25); /* Subtle gold */
+            animation: floatDown linear forwards;
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+        }
+        @keyframes floatDown {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        .names-en {
-            font-family: 'Playfair Display', serif;
+        /* Ensure content sits above particles */
+        .content-layer {
+            position: relative;
+            z-index: 10; 
         }
 
         /* ---------------- SCROLL ANIMATIONS ---------------- */
@@ -75,7 +103,7 @@
             width: 92vw;
             max-width: 450px;
             height: 85vh;
-            background: radial-gradient(circle at center, #2a2a2a, #1a1a1a); /* Vintage dark paper */
+            background: radial-gradient(circle at center, #2a2a2a, #1a1a1a);
             border-radius: 4px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             display: flex;
@@ -85,23 +113,24 @@
             transition: transform 0.6s ease;
         }
 
-        /* Vintage Postage Stamp */
         .postage-stamp {
             position: absolute;
             top: 20px;
             right: 20px;
             width: 45px;
             height: 55px;
-            background-color: #ece4d8; /* Old paper color */
+            background-color: #ece4d8;
             padding: 4px;
-            /* Jagged edges effect */
             background-image: radial-gradient(#1a1a1a 1.5px, transparent 1.5px);
             background-size: 8px 8px;
             background-position: -4px -4px;
             z-index: 1;
             transform: rotate(3deg);
             box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
         }
+        .postage-stamp:hover { transform: rotate(0deg) scale(1.1); }
+        
         .stamp-inner {
             width: 100%;
             height: 100%;
@@ -119,7 +148,6 @@
             font-weight: bold;
         }
 
-        /* Envelope Flaps (Pocket Style) */
         .envelope-flap-top {
             position: absolute;
             top: 0;
@@ -146,10 +174,9 @@
             filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.5));
         }
 
-        /* Elegant Wax Seal */
         .wax-seal {
             position: absolute;
-            top: 45%; /* Sits right at the tip of the top flap */
+            top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 80px;
@@ -167,7 +194,7 @@
             font-weight: 700;
             border: 2px solid #a8852a;
             cursor: pointer;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
         .wax-seal::after {
             content: '';
@@ -176,9 +203,14 @@
             height: 64px;
             border: 1px dashed #805c10;
             border-radius: 50%;
+            transition: transform 0.5s ease;
         }
         .wax-seal:hover {
-            transform: translate(-50%, -50%) scale(1.05);
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4), inset 0 0 15px rgba(0,0,0,0.4);
+        }
+        .wax-seal:hover::after {
+            transform: rotate(45deg);
         }
 
         .instruction-text {
@@ -192,28 +224,11 @@
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* Envelope Open Animation Classes */
-        .envelope-wrapper.open .envelope-flap-top {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-        .envelope-wrapper.open .wax-seal {
-            opacity: 0;
-            pointer-events: none;
-            transform: translate(-50%, -50%) scale(1.5);
-        }
-        .envelope-wrapper.open {
-            transform: scale(1.1);
-            opacity: 0;
-            transition: transform 1s ease, opacity 0.6s ease 0.4s;
-        }
-
+        .envelope-wrapper.open .envelope-flap-top { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .wax-seal { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(1.5); }
+        .envelope-wrapper.open { transform: scale(1.1); opacity: 0; transition: transform 1s ease, opacity 0.6s ease 0.4s; }
 
         /* ---------------- MAIN APP CONTENT ---------------- */
         .app-container {
@@ -228,518 +243,351 @@
             transition: opacity 1.2s ease-in;
         }
 
-        /* Hero Image Section - Decreased Height */
-        .hero {
-            position: relative;
-            width: 100%;
-        }
+        /* Hero Image */
+        .hero { position: relative; width: 100%; overflow: hidden; }
         .hero img {
             width: 100%;
-            height: 55vh; /* Decreased to show more content below */
+            height: 55vh;
             object-fit: cover;
-            object-position: top center; /* Keeps faces visible */
+            object-position: top center;
             display: block;
             border-bottom: 2px solid var(--accent-gold);
+            transition: transform 10s ease; /* Slow pan effect */
         }
+        .hero:hover img { transform: scale(1.05); }
 
-        /* Header / Names */
-        .header-section {
-            text-align: center;
-            padding: 40px 20px 20px;
-        }
+        /* Header */
+        .header-section { text-align: center; padding: 40px 20px 20px; }
         .header-section h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             color: var(--accent-gold);
             margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
         }
 
-        /* Calendar Section */
-        .calendar-section {
-            text-align: center;
-            padding: 20px;
-        }
-        .month-title {
-            letter-spacing: 3px;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            font-weight: 600;
-        }
+        /* Calendar */
+        .calendar-section { text-align: center; padding: 20px; }
+        .month-title { letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
         .calendar-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.2rem;
-            color: #888;
-            font-family: 'Playfair Display', serif;
+            display: flex; justify-content: center; align-items: center; gap: 15px;
+            font-size: 1.2rem; color: #888; font-family: 'Playfair Display', serif;
         }
         .calendar-row .highlight {
-            background-color: var(--accent-gold);
-            color: var(--bg-color);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.5rem;
+            background-color: var(--accent-gold); color: var(--bg-color);
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold; font-size: 1.5rem;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.4s ease;
         }
-        .our-day {
-            font-size: 1rem;
-            color: var(--accent-gold);
-            margin-top: 15px;
-            font-style: italic;
-        }
+        .calendar-row .highlight:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
+        .our-day { font-size: 1rem; color: var(--accent-gold); margin-top: 15px; font-style: italic; }
 
         /* Intro Text */
         .intro-text {
-            text-align: center;
-            padding: 35px 40px;
-            line-height: 1.8;
-            font-size: 1rem;
-            background-color: rgba(255, 255, 255, 0.02);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center; padding: 35px 40px; line-height: 1.8; font-size: 1rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(212,175,55,0.05) 100%);
+            border-top: 1px solid rgba(212, 175, 55, 0.2); border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             margin: 30px 0;
+            transition: background 0.5s ease;
         }
-        .intro-text h3 {
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
+        .intro-text:hover { background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(255,255,255,0.02) 100%); }
+        .intro-text h3 { color: var(--accent-gold); margin-bottom: 20px; letter-spacing: 1px; font-weight: 600; }
 
         /* Countdown */
-        .countdown-section {
-            text-align: center;
-            padding: 30px 20px 40px;
-        }
-        .countdown-title {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-            color: var(--text-main);
-        }
-        .timer-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .time-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 70px;
-        }
-        .time-box span.number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--accent-gold);
-        }
-        .time-box span.label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #aaa;
-            margin-top: 5px;
-        }
+        .countdown-section { text-align: center; padding: 30px 20px 40px; }
+        .countdown-title { font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 2px; }
+        .timer-container { display: flex; justify-content: center; gap: 20px; }
+        .time-box { display: flex; flex-direction: column; align-items: center; width: 70px; }
+        .time-box span.number { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--accent-gold); }
+        .time-box span.label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-top: 5px; }
 
         /* Timeline / Itinerary */
-        .timeline-section {
-            padding: 50px 20px;
-            background-color: #121212;
-            text-align: center;
-        }
-        .section-title {
-            color: var(--accent-gold);
-            font-size: 1.6rem;
-            margin-bottom: 40px;
-            letter-spacing: 2px;
-        }
-        .event {
-            margin-bottom: 50px;
-        }
-        /* Increased Event Image Height */
-        .event-img {
-            width: 100%;
-            height: 300px; /* Increased from 200px */
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #333;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        }
-        .event-time {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-        .event-title {
-            font-size: 1.2rem;
-            color: #ddd;
-            margin-bottom: 8px;
-        }
-        .event-location {
-            font-size: 1.3rem;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-        }
-        .map-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-        .map-btn:hover {
-            background-color: var(--accent-gold);
-            color: var(--bg-color);
-        }
+        .timeline-section { padding: 50px 20px; background-color: rgba(18, 18, 18, 0.9); text-align: center; border-radius: 20px 20px 0 0;}
+        .section-title { color: var(--accent-gold); font-size: 1.6rem; margin-bottom: 40px; letter-spacing: 2px; }
+        .event { margin-bottom: 50px; }
+        
+        .event-img-wrapper { overflow: hidden; border-radius: 12px; margin-bottom: 20px; border: 1px solid #333; box-shadow: 0 8px 20px rgba(0,0,0,0.6); transition: transform 0.4s ease, border-color 0.4s ease; }
+        .event-img-wrapper:hover { transform: translateY(-5px); border-color: var(--accent-gold); }
+        .event-img { width: 100%; height: 300px; object-fit: cover; transition: transform 0.6s ease; display: block; }
+        .event-img-wrapper:hover .event-img { transform: scale(1.08); }
 
-        /* Decorative Divider */
-        .divider {
-            width: 70%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            margin: 0 auto 50px;
+        .event-time { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-main); margin-bottom: 8px; }
+        .event-title { font-size: 1.2rem; color: #ddd; margin-bottom: 8px; }
+        .event-location { font-size: 1.3rem; color: var(--accent-gold); margin-bottom: 20px; }
+        
+        .map-btn {
+            display: inline-block; padding: 12px 30px; border: 1px solid var(--accent-gold); color: var(--accent-gold);
+            text-decoration: none; border-radius: 30px; font-size: 0.95rem; transition: all 0.4s ease; letter-spacing: 1px;
+            background: transparent; position: relative; overflow: hidden; z-index: 1;
         }
+        .map-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background-color: var(--accent-gold); transition: all 0.4s ease; z-index: -1;
+        }
+        .map-btn:hover::before { left: 0; }
+        .map-btn:hover { color: var(--bg-color); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
+
+        .divider { width: 70%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-gold), transparent); margin: 0 auto 50px; opacity: 0.5; }
 
         /* RSVP Form */
-        .rsvp-section {
-            padding: 50px 30px;
-            background-color: var(--container-bg);
-        }
-        .rsvp-desc {
-            text-align: center;
-            font-size: 0.95rem;
-            color: #aaa;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-        .form-group {
-            margin-bottom: 30px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.95rem;
-            color: var(--accent-gold);
-            margin-bottom: 12px;
-        }
+        .rsvp-section { padding: 50px 30px; background-color: rgba(22, 22, 22, 0.9); border-radius: 20px; margin: 0 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .rsvp-desc { text-align: center; font-size: 0.95rem; color: #aaa; margin-bottom: 30px; line-height: 1.5; }
+        .form-group { margin-bottom: 30px; }
+        .form-group label { display: block; font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 12px; transition: color 0.3s; }
+        .form-group:hover label { color: var(--accent-gold-light); }
+        
         input[type="text"], input[type="number"] {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #555;
-            color: #fff;
-            padding: 10px 0;
-            font-family: inherit;
-            font-size: 1.05rem;
-            outline: none;
-            transition: border-color 0.3s;
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid #555;
+            color: #fff; padding: 10px 0; font-family: inherit; font-size: 1.05rem; outline: none; transition: all 0.3s ease;
         }
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-bottom: 1px solid var(--accent-gold);
-        }
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .radio-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-size: 1rem;
-            color: #ddd;
-        }
-        .radio-label input {
-            margin-right: 12px;
-            accent-color: var(--accent-gold);
-            width: 20px;
-            height: 20px;
-        }
+        input[type="text"]:focus, input[type="number"]:focus { border-bottom: 1px solid var(--accent-gold); background: rgba(212,175,55,0.05); padding-left: 10px; }
+        
+        .radio-group { display: flex; flex-direction: column; gap: 15px; }
+        .radio-label { display: flex; align-items: center; cursor: pointer; font-size: 1rem; color: #ddd; transition: color 0.3s; }
+        .radio-label:hover { color: #fff; }
+        .radio-label input { margin-right: 12px; accent-color: var(--accent-gold); width: 20px; height: 20px; }
+        
         .submit-btn {
-            width: 100%;
-            background-color: var(--accent-gold);
-            color: var(--bg-color);
-            border: none;
-            padding: 18px;
-            font-size: 1.1rem;
-            font-family: inherit;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s;
+            width: 100%; background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            color: var(--bg-color); border: none; padding: 18px; font-size: 1.1rem; font-family: inherit;
+            font-weight: 600; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
-        .submit-btn:hover {
-            background-color: var(--accent-gold-light);
-        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); filter: brightness(1.1); }
 
         /* Gentle Reminders */
-        .reminders-section {
-            padding: 50px 20px 70px;
-            background-color: #0d0d0d;
-        }
+        .reminders-section { padding: 60px 20px 80px; background-color: transparent; }
+        
         .reminder-card {
-            background-color: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            background: linear-gradient(145deg, #1f1f1f, #161616); border: 1px solid #333;
+            border-radius: 12px; padding: 25px; margin-bottom: 20px; display: flex; align-items: flex-start;
+            gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+        /* Morphing & Hover Effect */
+        .reminder-card:hover {
+            border-radius: 30px 8px 30px 8px;
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+        
         .reminder-num {
-            background-color: var(--accent-gold);
-            color: var(--bg-color);
-            min-width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            font-family: 'Playfair Display', serif;
+            background-color: var(--accent-gold); color: var(--bg-color); min-width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 1.1rem; font-family: 'Playfair Display', serif;
+            transition: transform 0.4s ease;
         }
-        .reminder-text {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #ccc;
-        }
+        .reminder-card:hover .reminder-num { transform: rotate(360deg); background-color: var(--accent-gold-light); }
+        .reminder-text { font-size: 0.95rem; line-height: 1.6; color: #ccc; }
     </style>
 </head>
 <body>
 
+<div id="youtube-audio"></div>
+
 <div id="envelope-overlay">
     <div class="envelope-wrapper">
-        
         <div class="postage-stamp">
             <div class="stamp-inner">
-                <span>AM</span>
-                <span style="font-size: 16px;">24</span>
+                <span>AM</span><span style="font-size: 16px;">24</span>
             </div>
         </div>
-
         <div class="envelope-flap-bottom"></div>
         <div class="envelope-flap-top"></div>
-        
-        <div class="wax-seal" onclick="openEnvelope()">
-            L&P
-        </div>
-        
+        <div class="wax-seal" onclick="openEnvelope()">L&P</div>
         <div class="instruction-text">Սեղմեք կնիքի վրա</div>
     </div>
 </div>
 
 <div class="app-container" id="main-content">
     
-    <div class="hero">
-        <img src="5287354133407013476.jpg" alt="Lusine and Peter">
-    </div>
+    <div id="particles-container"></div>
 
-    <div class="header-section fade-in-up">
-        <h1 class="names-en">Lusine & Peter</h1>
-    </div>
-
-    <div class="calendar-section fade-in-up">
-        <div class="month-title">ՀՈԿՏԵՄԲԵՐ 2026</div>
-        <div class="calendar-row">
-            <span>22</span>
-            <span>23</span>
-            <div class="highlight">24</div>
-            <span>25</span>
-            <span>26</span>
-        </div>
-        <div class="our-day">մեր օրը</div>
-    </div>
-
-    <div class="intro-text fade-in-up">
-        <h3>ՍԻՐԵԼԻ ԸՆԿԵՐՆԵՐ ԵՎ ԲԱՐԵԿԱՄՆԵՐ</h3>
-        <p>Սիրով հրավիրում ենք Ձեզ կիսելու մեզ հետ մեր կյանքի ամենակարևոր և գեղեցիկ օրը: Անհամբերությամբ սպասում ենք Ձեզ:</p>
-    </div>
-
-    <div class="countdown-section fade-in-up">
-        <div class="countdown-title">ՄԻՆՉԵՎ ՀԱՐՍԱՆԻՔ ՄՆԱՑ</div>
-        <div class="timer-container">
-            <div class="time-box">
-                <span class="number" id="days">00</span>
-                <span class="label">Օր</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="hours">00</span>
-                <span class="label">Ժամ</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="minutes">00</span>
-                <span class="label">Րոպե</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="seconds">00</span>
-                <span class="label">Վայրկյան</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="timeline-section">
-        <h2 class="section-title fade-in-up">ԺԱՄԱՆԱԿԱՑՈՒՅՑ</h2>
-        
-        <div class="event fade-in-up">
-            <img src="church.jpg" alt="Church" class="event-img" onerror="this.style.display='none';"> 
-            <div class="event-time">16:00</div>
-            <div class="event-title">Պսակադրություն</div>
-            <div class="event-location">Սուրբ Ամենափրկիչ եկեղեցի</div>
-            <a href="https://www.google.com/maps/dir//Surb+Amenaprkich+Church,+7+%D4%B9%D5%B8%D6%82%D5%B4%D5%A1%D5%B6%D5%B5%D5%A1%D5%B6+%D6%83%D5%B8%D5%B2%D5%B8%D6%81,+%D5%86%D5%B8%D6%80+%D5%80%D5%A1%D5%B3%D5%B6+2412/@40.13818,44.5204209,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x406a9f076ac6bebd:0x3647500b6162c849!2m2!1d44.585332!2d40.3018438?entry=ttu&g_ep=EgoyMDI2MDYwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-btn">Քարտեզ</a>
+    <div class="content-layer">
+        <div class="hero">
+            <img src="5287354133407013476.jpg" alt="Lusine and Peter">
         </div>
 
-        <div class="divider fade-in-up"></div>
-
-        <div class="event fade-in-up">
-            <img src="restaurant.jpg" alt="Restaurant" class="event-img" onerror="this.style.display='none';">
-            <div class="event-time">17:30</div>
-            <div class="event-title">Հարսանյաց հանդես</div>
-            <div class="event-location">Love Garden ռեստորան</div>
-            <a href="https://www.google.com/maps/place/love+garden+restaurant/data=!4m2!3m1!1s0x406a9f252c4fea01:0x81ecf9ef99bc2750?sa=X&ved=1t:242&ictx=111" target="_blank" class="map-btn">Քարտեզ</a>
+        <div class="header-section fade-in-up">
+            <h1 class="names-en">Lusine & Peter</h1>
         </div>
-    </div>
 
-    <div class="rsvp-section fade-in-up">
-        <h2 class="section-title" style="text-align: center;">ՀԱՐՑԱԹԵՐԹԻԿ</h2>
-        <p class="rsvp-desc">Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև Հոկտեմբերի 10-ը:</p>
-        
-        <form onsubmit="sendWhatsApp(event)">
-            <div class="form-group">
-                <label>Անուն Ազգանուն</label>
-                <input type="text" id="guestName" required placeholder="Մուտքագրեք Ձեր անունը">
+        <div class="calendar-section fade-in-up">
+            <div class="month-title">ՀՈԿՏԵՄԲԵՐ 2026</div>
+            <div class="calendar-row">
+                <span>22</span><span>23</span>
+                <div class="highlight">24</div>
+                <span>25</span><span>26</span>
             </div>
+            <div class="our-day">մեր օրը</div>
+        </div>
+
+        <div class="intro-text fade-in-up">
+            <h3>ՍԻՐԵԼԻ ԸՆԿԵՐՆԵՐ ԵՎ ԲԱՐԵԿԱՄՆԵՐ</h3>
+            <p>Սիրով հրավիրում ենք Ձեզ կիսելու մեզ հետ մեր կյանքի ամենակարևոր և գեղեցիկ օրը: Անհամբերությամբ սպասում ենք Ձեզ:</p>
+        </div>
+
+        <div class="countdown-section fade-in-up">
+            <div class="countdown-title">ՄԻՆՉԵՎ ՀԱՐՍԱՆԻՔ ՄՆԱՑ</div>
+            <div class="timer-container">
+                <div class="time-box"><span class="number" id="days">00</span><span class="label">Օր</span></div>
+                <div class="time-box"><span class="number" id="hours">00</span><span class="label">Ժամ</span></div>
+                <div class="time-box"><span class="number" id="minutes">00</span><span class="label">Րոպե</span></div>
+                <div class="time-box"><span class="number" id="seconds">00</span><span class="label">Վայրկյան</span></div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h2 class="section-title fade-in-up">ԺԱՄԱՆԱԿԱՑՈՒՅՑ</h2>
             
-            <div class="form-group">
-                <label>Հյուրերի քանակ</label>
-                <input type="number" id="guestCount" min="1" required placeholder="Օրինակ՝ 2">
-            </div>
-
-            <div class="form-group">
-                <label>Ո՞ւմ կողմից եք հրավիրված</label>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="side" value="Lusine" required>
-                        <span class="names-en" style="margin-top: 3px;">Lusine</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="side" value="Peter">
-                        <span class="names-en" style="margin-top: 3px;">Peter</span>
-                    </label>
+            <div class="event fade-in-up">
+                <div class="event-img-wrapper">
+                    <img src="church.jpg" alt="Church" class="event-img" onerror="this.style.display='none';"> 
                 </div>
+                <div class="event-time">16:00</div>
+                <div class="event-title">Պսակադրություն</div>
+                <div class="event-location">Սուրբ Ամենափրկիչ եկեղեցի</div>
+                <a href="https://www.google.com/maps/dir//Surb+Amenaprkich+Church,+7+%D4%B9%D5%B8%D6%82%D5%B4%D5%A1%D5%B6%D5%B5%D5%A1%D5%B6+%D6%83%D5%B8%D5%B2%D5%B8%D6%81,+%D5%86%D5%B8%D6%80+%D5%80%D5%A1%D5%B3%D5%B6+2412/@40.13818,44.5204209,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x406a9f076ac6bebd:0x3647500b6162c849!2m2!1d44.585332!2d40.3018438?entry=ttu&g_ep=EgoyMDI2MDYwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-btn">Քարտեզ</a>
             </div>
 
-            <div class="form-group">
-                <label>Կկարողանա՞ք ներկա գտնվել միջոցառմանը</label>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="yes" required>
-                        Այո, իհարկե
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="no">
-                        Ցավոք, ոչ
-                    </label>
+            <div class="divider fade-in-up"></div>
+
+            <div class="event fade-in-up">
+                <div class="event-img-wrapper">
+                    <img src="restaurant.jpg" alt="Restaurant" class="event-img" onerror="this.style.display='none';">
                 </div>
-            </div>
-
-            <button type="submit" class="submit-btn">Ուղարկել (WhatsApp)</button>
-        </form>
-    </div>
-
-    <div class="reminders-section fade-in-up">
-        <h2 class="section-title" style="text-align: center;">ՍԻՐԵԼԻ ՀՅՈՒՐԵՐ</h2>
-        
-        <div class="reminder-card">
-            <div class="reminder-num">1</div>
-            <div class="reminder-text">
-                Խնդրում ենք ժամանել ճիշտ ժամանակին, որպեսզի բաց չթողնեք օրվա ամենակարևոր և հուզիչ պահերը:
+                <div class="event-time">17:30</div>
+                <div class="event-title">Հարսանյաց հանդես</div>
+                <div class="event-location">Love Garden ռեստորան</div>
+                <a href="https://www.google.com/maps/place/love+garden+restaurant/data=!4m2!3m1!1s0x406a9f252c4fea01:0x81ecf9ef99bc2750?sa=X&ved=1t:242&ictx=111" target="_blank" class="map-btn">Քարտեզ</a>
             </div>
         </div>
 
-        <div class="reminder-card">
-            <div class="reminder-num">2</div>
-            <div class="reminder-text">
-                Սպիտակ և բաց երանգների զգեստները խնդրում ենք թողնել միայն հարսին: Շնորհակալություն ըմբռնման համար:
+        <div class="rsvp-section fade-in-up">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">ՀԱՐՑԱԹԵՐԹԻԿ</h2>
+            <p class="rsvp-desc">Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև Հոկտեմբերի 10-ը:</p>
+            
+            <form onsubmit="sendWhatsApp(event)">
+                <div class="form-group">
+                    <label>Անուն Ազգանուն</label>
+                    <input type="text" id="guestName" required placeholder="Մուտքագրեք Ձեր անունը">
+                </div>
+                <div class="form-group">
+                    <label>Հյուրերի քանակ</label>
+                    <input type="number" id="guestCount" min="1" required placeholder="Օրինակ՝ 2">
+                </div>
+                <div class="form-group">
+                    <label>Ո՞ւմ կողմից եք հրավիրված</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="side" value="Lusine" required><span class="names-en">Lusine</span></label>
+                        <label class="radio-label"><input type="radio" name="side" value="Peter"><span class="names-en">Peter</span></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Կկարողանա՞ք ներկա գտնվել միջոցառմանը</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="attendance" value="yes" required>Այո, իհարկե</label>
+                        <label class="radio-label"><input type="radio" name="attendance" value="no">Ցավոք, ոչ</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Ուղարկել (WhatsApp)</button>
+            </form>
+        </div>
+
+        <div class="reminders-section fade-in-up">
+            <h2 class="section-title" style="text-align: center;">ՍԻՐԵԼԻ ՀՅՈՒՐԵՐ</h2>
+            <div class="reminder-card">
+                <div class="reminder-num">1</div>
+                <div class="reminder-text">Խնդրում ենք ժամանել ճիշտ ժամանակին, որպեսզի բաց չթողնեք օրվա ամենակարևոր և հուզիչ պահերը:</div>
+            </div>
+            <div class="reminder-card">
+                <div class="reminder-num">2</div>
+                <div class="reminder-text">Սպիտակ և բաց երանգների զգեստները խնդրում ենք թողնել միայն հարսին: Շնորհակալություն ըմբռնման համար:</div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
-    // --- 1. Smooth Scroll Animations (Intersection Observer) ---
-    document.addEventListener("DOMContentLoaded", function() {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Only animate once
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in-up').forEach((elem) => {
-            observer.observe(elem);
+    // --- 1. YOUTUBE AUDIO ENGINE ---
+    let ytPlayer;
+    function onYouTubeIframeAPIReady() {
+        ytPlayer = new YT.Player('youtube-audio', {
+            height: '0',
+            width: '0',
+            // ==========================================
+            // PASTE YOUR 11-CHARACTER YOUTUBE VIDEO ID BELOW
+            // ==========================================
+            videoId: 'CkKyvW_kdBA', 
+            playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': 'YOUR_VIDEO_ID_HERE' }
         });
-    });
+    }
 
-    // --- 2. Vintage Envelope Opening Animation ---
+    // --- 2. ENVELOPE OPEN & PLAY AUDIO ---
     function openEnvelope() {
         const wrapper = document.querySelector('.envelope-wrapper');
         const overlay = document.getElementById('envelope-overlay');
         const mainContent = document.getElementById('main-content');
-        const text = document.querySelector('.instruction-text');
+        document.querySelector('.instruction-text').style.display = 'none';
 
-        // Hide instruction text
-        text.style.display = 'none';
+        // Play YouTube Music when user clicks
+        if(ytPlayer && ytPlayer.playVideo) {
+            ytPlayer.playVideo();
+        }
 
-        // Add 'open' class to flip the flap and trigger zoom out
         wrapper.classList.add('open');
 
-        // Wait for flap/envelope animation, then fade out overlay
         setTimeout(() => {
             overlay.style.opacity = '0';
-            
-            // Wait for fade out, then hide overlay and show main website
             setTimeout(() => {
                 overlay.style.visibility = 'hidden';
                 overlay.style.display = 'none';
                 mainContent.style.display = 'block';
-                
-                // Slight delay to trigger CSS fade in for the website
                 setTimeout(() => {
                     mainContent.style.opacity = '1';
+                    startParticles(); // Start falling hearts/flowers when site appears
                 }, 50);
-                
             }, 800);
         }, 800);
     }
 
+    // --- 3. FALLING PARTICLES (HEARTS & FLOWERS) ---
+    function startParticles() {
+        const container = document.getElementById('particles-container');
+        const icons = ['🤍', '✨', '🌸', '🤍', '🥀', '✨']; // Elements to drop
+        
+        setInterval(() => {
+            const el = document.createElement('div');
+            el.innerText = icons[Math.floor(Math.random() * icons.length)];
+            el.className = 'particle';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDuration = (Math.random() * 4 + 6) + 's'; // Falls between 6-10 seconds
+            el.style.fontSize = (Math.random() * 10 + 12) + 'px'; // Size between 12-22px
+            container.appendChild(el);
+            
+            // Remove particle after animation ends to prevent lag
+            setTimeout(() => el.remove(), 10000); 
+        }, 400); // New particle every 0.4 seconds
+    }
 
-    // --- 3. Countdown Timer ---
+    // --- 4. SCROLL ANIMATIONS ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach((elem) => observer.observe(elem));
+    });
+
+    // --- 5. COUNTDOWN TIMER ---
     const weddingDate = new Date("Oct 24, 2026 16:00:00").getTime();
-
     const countdown = setInterval(function() {
         const now = new Date().getTime();
         const distance = weddingDate - now;
@@ -753,23 +601,15 @@
             return;
         }
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-
+        document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
     }, 1000);
 
-
-    // --- 4. WhatsApp Form Submission ---
+    // --- 6. WHATSAPP FORM SUBMISSION ---
     function sendWhatsApp(event) {
         event.preventDefault(); 
-
         const name = document.getElementById('guestName').value;
         const guests = document.getElementById('guestCount').value;
         const sideInput = document.querySelector('input[name="side"]:checked');
@@ -777,7 +617,6 @@
         
         const side = sideInput ? sideInput.value : '';
         const attendanceValue = attendanceInput ? attendanceInput.value : '';
-        
         const attendanceText = attendanceValue === 'yes' ? 'Այո, իհարկե (Կներկայանամ)' : 'Ցավոք, ոչ (Չեմ կարող ներկայանալ)';
 
         const message = `Նոր պատասխան հրավերին:%0A%0A👤 Անուն Ազգանուն: ${encodeURIComponent(name)}%0A👥 Հյուրերի քանակ: ${guests}%0A💍 Ում կողմից: ${encodeURIComponent(side)}%0A✅ Ներկայություն: ${encodeURIComponent(attendanceText)}`;
