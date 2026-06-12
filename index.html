@@ -11,11 +11,12 @@
 
     <style>
         :root {
-            --bg-color: #0d0d0d;
-            --text-main: #f0f0f0;
-            --accent-gold: #d4af37;
-            --accent-gold-dark: #aa7c11;
-            --accent-gold-light: #f3e5ab;
+            /* Light Theme Variables */
+            --bg-color: #ffffff;
+            --text-main: #333333; 
+            --accent-gold: #c5a059; 
+            --accent-gold-dark: #a38242;
+            --accent-gold-light: #e8d09e;
         }
 
         * {
@@ -25,8 +26,8 @@
         }
 
         body {
-            /* Beautiful dark gradient matching wedding colors */
-            background: linear-gradient(135deg, #1f1b13 0%, #0d0d0d 50%, #161410 100%);
+            /* Elegant white to soft cream gradient */
+            background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 50%, #f4f0e6 100%);
             background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Noto Serif Armenian', serif;
@@ -53,9 +54,10 @@
         .particle {
             position: absolute;
             top: -10%;
-            color: rgba(212, 175, 55, 0.25);
+            /* Increased opacity so they are visible on white */
+            color: rgba(197, 160, 89, 0.5); 
             animation: floatDown linear forwards;
-            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+            filter: drop-shadow(0 0 5px rgba(197, 160, 89, 0.2));
         }
         @keyframes floatDown {
             0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
@@ -80,14 +82,14 @@
             transform: translateY(0);
         }
 
-        /* ---------------- VINTAGE ENVELOPE OVERLAY ---------------- */
+        /* ---------------- VINTAGE IVORY ENVELOPE OVERLAY ---------------- */
         #envelope-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #050505;
+            background-color: #faf8f5;
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -101,9 +103,10 @@
             width: 92vw;
             max-width: 450px;
             height: 85vh;
-            background: radial-gradient(circle at center, #2a2215, #120e09);
+            /* Ivory/Cream envelope body */
+            background: radial-gradient(circle at center, #ffffff, #f2eadc);
             border-radius: 4px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -119,12 +122,12 @@
             height: 55px;
             background-color: #ece4d8;
             padding: 4px;
-            background-image: radial-gradient(#1a1a1a 1.5px, transparent 1.5px);
+            background-image: radial-gradient(#dcd5c7 1.5px, transparent 1.5px);
             background-size: 8px 8px;
             background-position: -4px -4px;
             z-index: 1;
             transform: rotate(3deg);
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
             transition: transform 0.3s ease;
         }
         .postage-stamp:hover { transform: rotate(0deg) scale(1.1); }
@@ -133,7 +136,7 @@
             width: 100%;
             height: 100%;
             border: 1px solid #a38c6d;
-            background-color: #f7f3ed;
+            background-color: #fdfbf7;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -152,12 +155,12 @@
             left: 0;
             width: 100%;
             height: 45%;
-            background: linear-gradient(to bottom, #251e15, #17120c);
+            background: linear-gradient(to bottom, #ffffff, #f9f6f0);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.3s;
             z-index: 4;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 8px 8px rgba(0,0,0,0.1));
         }
 
         .envelope-flap-bottom {
@@ -166,10 +169,10 @@
             left: 0;
             width: 100%;
             height: 70%;
-            background: linear-gradient(to top, #1c150e, #292116);
+            background: linear-gradient(to top, #fdfcf9, #f2eadc);
             clip-path: polygon(0 100%, 100% 100%, 100% 15%, 50% 0, 0 15%);
             z-index: 3;
-            filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.08));
         }
 
         .wax-seal {
@@ -181,16 +184,17 @@
             height: 80px;
             background: radial-gradient(circle, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
             border-radius: 50%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.7), inset 0 0 15px rgba(0,0,0,0.4);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), inset 0 0 15px rgba(0,0,0,0.2);
             z-index: 5;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #523b08;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
             font-family: 'Noto Serif Armenian', serif;
             font-size: 26px;
             font-weight: 700;
-            border: 2px solid #a8852a;
+            border: 2px solid #e3c488;
             cursor: pointer;
             transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -199,13 +203,13 @@
             position: absolute;
             width: 64px;
             height: 64px;
-            border: 1px dashed #805c10;
+            border: 1px dashed rgba(255,255,255,0.6);
             border-radius: 50%;
             transition: transform 0.5s ease;
         }
         .wax-seal:hover {
             transform: translate(-50%, -50%) scale(1.08);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4), inset 0 0 15px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 25px rgba(197, 160, 89, 0.5), inset 0 0 15px rgba(0,0,0,0.2);
         }
         .wax-seal:hover::after {
             transform: rotate(45deg);
@@ -215,20 +219,19 @@
         .envelope-bottom-text {
             position: absolute;
             bottom: 12%;
-            color: var(--accent-gold);
+            color: var(--accent-gold-dark);
             font-family: 'Noto Serif Armenian', serif;
             font-style: italic;
             font-size: 2.2rem;
             z-index: 6;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.05);
             transition: opacity 0.3s ease;
-            opacity: 0.9;
         }
 
         .instruction-text {
             position: absolute;
             bottom: 40px;
-            color: var(--accent-gold);
+            color: #888;
             font-size: 0.95rem;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -247,11 +250,11 @@
         .app-container {
             width: 100%;
             max-width: 480px;
-            /* Applying subtle gradient to the container to blend nicely */
-            background: linear-gradient(180deg, #15130f 0%, #0d0d0d 100%);
+            /* Light gradient for the main container */
+            background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 35px rgba(0,0,0,0.9);
+            box-shadow: 0 0 35px rgba(0,0,0,0.1);
             display: none;
             opacity: 0;
             transition: opacity 1.2s ease-in;
@@ -273,43 +276,44 @@
         /* Header */
         .header-section { text-align: center; padding: 40px 20px 20px; }
         .header-section h1 {
-            font-size: 2.8rem; /* Adjusted slightly for Armenian text fitting */
-            color: var(--accent-gold);
+            font-size: 2.8rem; 
+            color: var(--accent-gold-dark);
             margin-bottom: 10px;
-            text-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+            text-shadow: 0 2px 5px rgba(197, 160, 89, 0.15);
             font-weight: 600;
         }
 
         /* Calendar */
         .calendar-section { text-align: center; padding: 20px; }
-        .month-title { letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
+        .month-title { letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; color: #444;}
         .calendar-row {
             display: flex; justify-content: center; align-items: center; gap: 15px;
-            font-size: 1.2rem; color: #888; font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; color: #777; font-family: 'Playfair Display', serif;
         }
         .calendar-row .highlight {
-            background-color: var(--accent-gold); color: var(--bg-color);
+            background-color: var(--accent-gold); color: #fff;
             width: 50px; height: 50px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             font-weight: bold; font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
             transition: all 0.4s ease;
         }
-        .calendar-row .highlight:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
-        .our-day { font-size: 1rem; color: var(--accent-gold); margin-top: 15px; font-style: italic; }
+        .calendar-row .highlight:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 6px 20px rgba(197, 160, 89, 0.6); }
+        .our-day { font-size: 1rem; color: var(--accent-gold-dark); margin-top: 15px; font-style: italic; }
 
         /* Intro Text */
         .intro-text {
             text-align: center; padding: 35px 40px; line-height: 1.8; font-size: 1rem;
-            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(212,175,55,0.05) 100%);
-            border-top: 1px solid rgba(212, 175, 55, 0.2); border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, rgba(197,160,89,0.05) 0%, rgba(197,160,89,0.15) 100%);
+            border-top: 1px solid rgba(197, 160, 89, 0.2); border-bottom: 1px solid rgba(197, 160, 89, 0.2);
             margin: 30px 0;
             transition: background 0.5s ease;
         }
-        .intro-text:hover { background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(255,255,255,0.02) 100%); }
-        .intro-text h3 { color: var(--accent-gold); margin-bottom: 20px; letter-spacing: 1px; font-weight: 600; }
+        .intro-text:hover { background: linear-gradient(135deg, rgba(197,160,89,0.1) 0%, rgba(197,160,89,0.2) 100%); }
+        .intro-text h3 { color: var(--accent-gold-dark); margin-bottom: 20px; letter-spacing: 1px; font-weight: 600; }
+        .intro-text p { color: #444; }
 
-        /* ---------------- ENHANCED COUNTDOWN TIMER ---------------- */
+        /* ---------------- LIGHT GLASSMORPHISM TIMER ---------------- */
         .countdown-section { 
             text-align: center; 
             padding: 30px 20px 50px; 
@@ -318,8 +322,7 @@
             font-size: 1.2rem; 
             margin-bottom: 35px; 
             letter-spacing: 3px; 
-            color: var(--accent-gold);
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            color: var(--accent-gold-dark);
         }
         .timer-container { 
             display: flex; 
@@ -333,59 +336,57 @@
             justify-content: center;
             width: 75px; 
             height: 85px;
-            background: linear-gradient(145deg, rgba(35, 30, 20, 0.7), rgba(15, 12, 10, 0.9));
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            background: linear-gradient(145deg, #ffffff, #f9f8f5);
+            border: 1px solid rgba(197, 160, 89, 0.3);
             border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 0 10px rgba(212, 175, 55, 0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05), inset 0 0 10px rgba(197, 160, 89, 0.05);
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
             position: relative;
             overflow: hidden;
         }
-        /* Top border highlight effect */
         .time-box::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.8), transparent);
+            background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.5), transparent);
         }
         .time-box:hover {
             transform: translateY(-8px);
-            border-color: rgba(212, 175, 55, 0.6);
-            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.1);
+            border-color: rgba(197, 160, 89, 0.6);
+            box-shadow: 0 12px 25px rgba(197, 160, 89, 0.15), inset 0 0 15px rgba(197, 160, 89, 0.05);
         }
         .time-box span.number { 
             font-family: 'Playfair Display', serif; 
             font-size: 2.2rem; 
-            color: var(--text-main); 
+            color: var(--accent-gold-dark); 
             font-weight: 600;
             line-height: 1;
             margin-bottom: 5px;
-            text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            text-shadow: 0 0 8px rgba(197, 160, 89, 0.2);
         }
         .time-box span.label { 
             font-size: 0.75rem; 
             text-transform: uppercase; 
             letter-spacing: 1px; 
-            color: var(--accent-gold); 
-            opacity: 0.9;
+            color: #777; 
         }
 
         /* Timeline / Itinerary */
-        .timeline-section { padding: 50px 20px; background-color: rgba(18, 15, 12, 0.9); text-align: center; border-radius: 20px 20px 0 0;}
-        .section-title { color: var(--accent-gold); font-size: 1.6rem; margin-bottom: 40px; letter-spacing: 2px; }
+        .timeline-section { padding: 50px 20px; background-color: rgba(255, 255, 255, 0.9); text-align: center; border-radius: 20px 20px 0 0;}
+        .section-title { color: var(--accent-gold-dark); font-size: 1.6rem; margin-bottom: 40px; letter-spacing: 2px; }
         .event { margin-bottom: 50px; }
         
-        .event-img-wrapper { overflow: hidden; border-radius: 12px; margin-bottom: 20px; border: 1px solid #333; box-shadow: 0 8px 20px rgba(0,0,0,0.6); transition: transform 0.4s ease, border-color 0.4s ease; }
+        .event-img-wrapper { overflow: hidden; border-radius: 12px; margin-bottom: 20px; border: 1px solid #eaeaea; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: transform 0.4s ease, border-color 0.4s ease; }
         .event-img-wrapper:hover { transform: translateY(-5px); border-color: var(--accent-gold); }
         .event-img { width: 100%; height: 300px; object-fit: cover; transition: transform 0.6s ease; display: block; }
         .event-img-wrapper:hover .event-img { transform: scale(1.08); }
 
-        .event-time { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-main); margin-bottom: 8px; }
-        .event-title { font-size: 1.2rem; color: #ddd; margin-bottom: 8px; }
-        .event-location { font-size: 1.3rem; color: var(--accent-gold); margin-bottom: 20px; }
+        .event-time { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-gold-dark); margin-bottom: 8px; }
+        .event-title { font-size: 1.2rem; color: #444; margin-bottom: 8px; font-weight: 600;}
+        .event-location { font-size: 1.1rem; color: #666; margin-bottom: 20px; }
         
         .map-btn {
-            display: inline-block; padding: 12px 30px; border: 1px solid var(--accent-gold); color: var(--accent-gold);
+            display: inline-block; padding: 12px 30px; border: 1px solid var(--accent-gold); color: var(--accent-gold-dark);
             text-decoration: none; border-radius: 30px; font-size: 0.95rem; transition: all 0.4s ease; letter-spacing: 1px;
             background: transparent; position: relative; overflow: hidden; z-index: 1;
         }
@@ -394,59 +395,58 @@
             background-color: var(--accent-gold); transition: all 0.4s ease; z-index: -1;
         }
         .map-btn:hover::before { left: 0; }
-        .map-btn:hover { color: var(--bg-color); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
+        .map-btn:hover { color: #fff; box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4); }
 
-        .divider { width: 70%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-gold), transparent); margin: 0 auto 50px; opacity: 0.5; }
+        .divider { width: 70%; height: 1px; background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.5), transparent); margin: 0 auto 50px; }
 
         /* RSVP Form */
-        .rsvp-section { padding: 50px 30px; background-color: rgba(26, 22, 18, 0.9); border-radius: 20px; margin: 0 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .rsvp-desc { text-align: center; font-size: 0.95rem; color: #aaa; margin-bottom: 30px; line-height: 1.5; }
+        .rsvp-section { padding: 50px 30px; background-color: rgba(255, 255, 255, 0.95); border-radius: 20px; margin: 0 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f4f0e6;}
+        .rsvp-desc { text-align: center; font-size: 0.95rem; color: #666; margin-bottom: 30px; line-height: 1.5; }
         .form-group { margin-bottom: 30px; }
-        .form-group label { display: block; font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 12px; transition: color 0.3s; }
-        .form-group:hover label { color: var(--accent-gold-light); }
+        .form-group label { display: block; font-size: 0.95rem; color: var(--accent-gold-dark); margin-bottom: 12px; transition: color 0.3s; font-weight: 600;}
         
         input[type="text"], input[type="number"] {
-            width: 100%; background: transparent; border: none; border-bottom: 1px solid #555;
-            color: #fff; padding: 10px 0; font-family: inherit; font-size: 1.05rem; outline: none; transition: all 0.3s ease;
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid #ccc;
+            color: #333; padding: 10px 0; font-family: inherit; font-size: 1.05rem; outline: none; transition: all 0.3s ease;
         }
-        input[type="text"]:focus, input[type="number"]:focus { border-bottom: 1px solid var(--accent-gold); background: rgba(212,175,55,0.05); padding-left: 10px; }
+        input[type="text"]:focus, input[type="number"]:focus { border-bottom: 1px solid var(--accent-gold); background: rgba(197, 160, 89, 0.05); padding-left: 10px; }
         
         .radio-group { display: flex; flex-direction: column; gap: 15px; }
-        .radio-label { display: flex; align-items: center; cursor: pointer; font-size: 1rem; color: #ddd; transition: color 0.3s; }
-        .radio-label:hover { color: #fff; }
+        .radio-label { display: flex; align-items: center; cursor: pointer; font-size: 1rem; color: #555; transition: color 0.3s; }
+        .radio-label:hover { color: #222; }
         .radio-label input { margin-right: 12px; accent-color: var(--accent-gold); width: 20px; height: 20px; }
         
         .submit-btn {
             width: 100%; background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
-            color: var(--bg-color); border: none; padding: 18px; font-size: 1.1rem; font-family: inherit;
+            color: #fff; border: none; padding: 18px; font-size: 1.1rem; font-family: inherit;
             font-weight: 600; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
         }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); filter: brightness(1.1); }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(197, 160, 89, 0.5); filter: brightness(1.1); }
 
         /* Gentle Reminders */
         .reminders-section { padding: 60px 20px 40px; background-color: transparent; }
         
         .reminder-card {
-            background: linear-gradient(145deg, #1f1a14, #120e0a); border: 1px solid #333;
+            background: linear-gradient(145deg, #ffffff, #fdfcf9); border: 1px solid #eee;
             border-radius: 12px; padding: 25px; margin-bottom: 20px; display: flex; align-items: flex-start;
-            gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .reminder-card:hover {
             border-radius: 30px 8px 30px 8px;
             transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            border-color: rgba(197, 160, 89, 0.4);
+            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.1);
         }
         
         .reminder-num {
-            background-color: var(--accent-gold); color: var(--bg-color); min-width: 35px; height: 35px;
+            background-color: var(--accent-gold); color: #fff; min-width: 35px; height: 35px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-weight: bold; font-size: 1.1rem; font-family: 'Playfair Display', serif;
             transition: transform 0.4s ease;
         }
-        .reminder-card:hover .reminder-num { transform: rotate(360deg); background-color: var(--accent-gold-light); }
-        .reminder-text { font-size: 0.95rem; line-height: 1.6; color: #ccc; }
+        .reminder-card:hover .reminder-num { transform: rotate(360deg); background-color: var(--accent-gold-dark); }
+        .reminder-text { font-size: 0.95rem; line-height: 1.6; color: #555; }
 
         /* ---------------- FINAL SIGNATURE SECTION ---------------- */
         .final-signature-section {
@@ -457,22 +457,22 @@
         .final-signature-section img {
             width: 80%;
             max-width: 350px;
-            border-radius: 200px 200px 0 0; /* Elegant arch shape */
+            border-radius: 200px 200px 0 0; 
             border: 2px solid var(--accent-gold);
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             object-fit: cover;
             transition: transform 0.5s ease, border-color 0.5s ease;
         }
         .final-signature-section img:hover {
             transform: scale(1.03);
-            border-color: var(--accent-gold-light);
+            border-color: var(--accent-gold-dark);
         }
         .final-names {
             font-family: 'Great Vibes', cursive;
             font-size: 3.8rem;
-            color: var(--accent-gold);
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+            color: var(--accent-gold-dark);
+            text-shadow: 0 2px 5px rgba(197, 160, 89, 0.2);
             line-height: 1.2;
         }
 
