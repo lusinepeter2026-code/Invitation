@@ -48,13 +48,13 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1; /* Above background, behind content */
+            z-index: 1;
             overflow: hidden;
         }
         .particle {
             position: absolute;
             top: -10%;
-            color: rgba(212, 175, 55, 0.25); /* Subtle gold */
+            color: rgba(212, 175, 55, 0.25);
             animation: floatDown linear forwards;
             filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
         }
@@ -65,7 +65,6 @@
             100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* Ensure content sits above particles */
         .content-layer {
             position: relative;
             z-index: 10; 
@@ -252,7 +251,7 @@
             object-position: top center;
             display: block;
             border-bottom: 2px solid var(--accent-gold);
-            transition: transform 10s ease; /* Slow pan effect */
+            transition: transform 10s ease;
         }
         .hero:hover img { transform: scale(1.05); }
 
@@ -294,13 +293,66 @@
         .intro-text:hover { background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(255,255,255,0.02) 100%); }
         .intro-text h3 { color: var(--accent-gold); margin-bottom: 20px; letter-spacing: 1px; font-weight: 600; }
 
-        /* Countdown */
-        .countdown-section { text-align: center; padding: 30px 20px 40px; }
-        .countdown-title { font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 2px; }
-        .timer-container { display: flex; justify-content: center; gap: 20px; }
-        .time-box { display: flex; flex-direction: column; align-items: center; width: 70px; }
-        .time-box span.number { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--accent-gold); }
-        .time-box span.label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-top: 5px; }
+        /* ---------------- ENHANCED COUNTDOWN TIMER ---------------- */
+        .countdown-section { 
+            text-align: center; 
+            padding: 30px 20px 50px; 
+        }
+        .countdown-title { 
+            font-size: 1.2rem; 
+            margin-bottom: 35px; 
+            letter-spacing: 3px; 
+            color: var(--accent-gold);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .timer-container { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+        }
+        .time-box { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            width: 75px; 
+            height: 85px;
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.7), rgba(15, 15, 15, 0.9));
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 0 10px rgba(212, 175, 55, 0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Top border highlight effect */
+        .time-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.8), transparent);
+        }
+        .time-box:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+        .time-box span.number { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.2rem; 
+            color: var(--text-main); 
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+        }
+        .time-box span.label { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: var(--accent-gold); 
+            opacity: 0.9;
+        }
 
         /* Timeline / Itinerary */
         .timeline-section { padding: 50px 20px; background-color: rgba(18, 18, 18, 0.9); text-align: center; border-radius: 20px 20px 0 0;}
@@ -364,7 +416,6 @@
             border-radius: 12px; padding: 25px; margin-bottom: 20px; display: flex; align-items: flex-start;
             gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        /* Morphing & Hover Effect */
         .reminder-card:hover {
             border-radius: 30px 8px 30px 8px;
             transform: translateY(-5px);
@@ -519,8 +570,8 @@
             // ==========================================
             // PASTE YOUR 11-CHARACTER YOUTUBE VIDEO ID BELOW
             // ==========================================
-            videoId: 'CkKyvW_kdBA', 
-            playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': 'CkKyvW_kdBA' }
+            videoId: 'YOUR_VIDEO_ID_HERE', 
+            playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': 'YOUR_VIDEO_ID_HERE' }
         });
     }
 
@@ -531,7 +582,6 @@
         const mainContent = document.getElementById('main-content');
         document.querySelector('.instruction-text').style.display = 'none';
 
-        // Play YouTube Music when user clicks
         if(ytPlayer && ytPlayer.playVideo) {
             ytPlayer.playVideo();
         }
@@ -546,7 +596,7 @@
                 mainContent.style.display = 'block';
                 setTimeout(() => {
                     mainContent.style.opacity = '1';
-                    startParticles(); // Start falling hearts/flowers when site appears
+                    startParticles();
                 }, 50);
             }, 800);
         }, 800);
@@ -555,20 +605,19 @@
     // --- 3. FALLING PARTICLES (HEARTS & FLOWERS) ---
     function startParticles() {
         const container = document.getElementById('particles-container');
-        const icons = ['🤍', '✨', '🌸', '🤍', '🥀', '✨']; // Elements to drop
+        const icons = ['🤍', '✨', '🌸', '🤍', '🥀', '✨']; 
         
         setInterval(() => {
             const el = document.createElement('div');
             el.innerText = icons[Math.floor(Math.random() * icons.length)];
             el.className = 'particle';
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 4 + 6) + 's'; // Falls between 6-10 seconds
-            el.style.fontSize = (Math.random() * 10 + 12) + 'px'; // Size between 12-22px
+            el.style.animationDuration = (Math.random() * 4 + 6) + 's'; 
+            el.style.fontSize = (Math.random() * 10 + 12) + 'px'; 
             container.appendChild(el);
             
-            // Remove particle after animation ends to prevent lag
             setTimeout(() => el.remove(), 10000); 
-        }, 400); // New particle every 0.4 seconds
+        }, 400); 
     }
 
     // --- 4. SCROLL ANIMATIONS ---
@@ -586,7 +635,7 @@
         document.querySelectorAll('.fade-in-up').forEach((elem) => observer.observe(elem));
     });
 
-    // --- 5. COUNTDOWN TIMER ---
+    // --- 5. ENHANCED COUNTDOWN TIMER ---
     const weddingDate = new Date("Oct 24, 2026 16:00:00").getTime();
     const countdown = setInterval(function() {
         const now = new Date().getTime();
