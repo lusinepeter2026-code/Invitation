@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lusine & Peter - Wedding Invitation</title>
+    <title>Լուսինե և Փիթեր - Հարսանյաց Հրավեր</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,6 @@
     <style>
         :root {
             --bg-color: #0d0d0d;
-            --container-bg: #161616;
             --text-main: #f0f0f0;
             --accent-gold: #d4af37;
             --accent-gold-dark: #aa7c11;
@@ -26,7 +25,9 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            /* Beautiful dark gradient matching wedding colors */
+            background: linear-gradient(135deg, #1f1b13 0%, #0d0d0d 50%, #161410 100%);
+            background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Noto Serif Armenian', serif;
             -webkit-font-smoothing: antialiased;
@@ -100,7 +101,7 @@
             width: 92vw;
             max-width: 450px;
             height: 85vh;
-            background: radial-gradient(circle at center, #2a2a2a, #1a1a1a);
+            background: radial-gradient(circle at center, #2a2215, #120e09);
             border-radius: 4px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             display: flex;
@@ -151,7 +152,7 @@
             left: 0;
             width: 100%;
             height: 45%;
-            background: linear-gradient(to bottom, #252525, #1f1f1f);
+            background: linear-gradient(to bottom, #251e15, #17120c);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.3s;
@@ -165,7 +166,7 @@
             left: 0;
             width: 100%;
             height: 70%;
-            background: linear-gradient(to top, #222, #292929);
+            background: linear-gradient(to top, #1c150e, #292116);
             clip-path: polygon(0 100%, 100% 100%, 100% 15%, 50% 0, 0 15%);
             z-index: 3;
             filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.5));
@@ -186,7 +187,7 @@
             align-items: center;
             justify-content: center;
             color: #523b08;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Noto Serif Armenian', serif;
             font-size: 26px;
             font-weight: 700;
             border: 2px solid #a8852a;
@@ -246,10 +247,11 @@
         .app-container {
             width: 100%;
             max-width: 480px;
-            background-color: var(--container-bg);
+            /* Applying subtle gradient to the container to blend nicely */
+            background: linear-gradient(180deg, #15130f 0%, #0d0d0d 100%);
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            box-shadow: 0 0 35px rgba(0,0,0,0.9);
             display: none;
             opacity: 0;
             transition: opacity 1.2s ease-in;
@@ -271,10 +273,11 @@
         /* Header */
         .header-section { text-align: center; padding: 40px 20px 20px; }
         .header-section h1 {
-            font-size: 3.2rem;
+            font-size: 2.8rem; /* Adjusted slightly for Armenian text fitting */
             color: var(--accent-gold);
             margin-bottom: 10px;
             text-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+            font-weight: 600;
         }
 
         /* Calendar */
@@ -330,7 +333,7 @@
             justify-content: center;
             width: 75px; 
             height: 85px;
-            background: linear-gradient(145deg, rgba(30, 30, 30, 0.7), rgba(15, 15, 15, 0.9));
+            background: linear-gradient(145deg, rgba(35, 30, 20, 0.7), rgba(15, 12, 10, 0.9));
             border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 0 10px rgba(212, 175, 55, 0.05);
@@ -368,7 +371,7 @@
         }
 
         /* Timeline / Itinerary */
-        .timeline-section { padding: 50px 20px; background-color: rgba(18, 18, 18, 0.9); text-align: center; border-radius: 20px 20px 0 0;}
+        .timeline-section { padding: 50px 20px; background-color: rgba(18, 15, 12, 0.9); text-align: center; border-radius: 20px 20px 0 0;}
         .section-title { color: var(--accent-gold); font-size: 1.6rem; margin-bottom: 40px; letter-spacing: 2px; }
         .event { margin-bottom: 50px; }
         
@@ -396,7 +399,7 @@
         .divider { width: 70%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-gold), transparent); margin: 0 auto 50px; opacity: 0.5; }
 
         /* RSVP Form */
-        .rsvp-section { padding: 50px 30px; background-color: rgba(22, 22, 22, 0.9); border-radius: 20px; margin: 0 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .rsvp-section { padding: 50px 30px; background-color: rgba(26, 22, 18, 0.9); border-radius: 20px; margin: 0 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .rsvp-desc { text-align: center; font-size: 0.95rem; color: #aaa; margin-bottom: 30px; line-height: 1.5; }
         .form-group { margin-bottom: 30px; }
         .form-group label { display: block; font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 12px; transition: color 0.3s; }
@@ -425,7 +428,7 @@
         .reminders-section { padding: 60px 20px 40px; background-color: transparent; }
         
         .reminder-card {
-            background: linear-gradient(145deg, #1f1f1f, #161616); border: 1px solid #333;
+            background: linear-gradient(145deg, #1f1a14, #120e0a); border: 1px solid #333;
             border-radius: 12px; padding: 25px; margin-bottom: 20px; display: flex; align-items: flex-start;
             gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
@@ -488,7 +491,7 @@
         </div>
         <div class="envelope-flap-bottom"></div>
         <div class="envelope-flap-top"></div>
-        <div class="wax-seal" onclick="openEnvelope()">L&P</div>
+        <div class="wax-seal" onclick="openEnvelope()">Լ&Փ</div>
         
         <div class="envelope-bottom-text">Հրավեր</div>
         
@@ -506,7 +509,7 @@
         </div>
 
         <div class="header-section fade-in-up">
-            <h1 class="names-en">Lusine & Peter</h1>
+            <h1>Լուսինե և Փիթեր</h1>
         </div>
 
         <div class="calendar-section fade-in-up">
@@ -576,8 +579,8 @@
                 <div class="form-group">
                     <label>Ո՞ւմ կողմից եք հրավիրված</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="side" value="Lusine" required><span class="names-en">Lusine</span></label>
-                        <label class="radio-label"><input type="radio" name="side" value="Peter"><span class="names-en">Peter</span></label>
+                        <label class="radio-label"><input type="radio" name="side" value="Լուսինե" required><span>Լուսինե</span></label>
+                        <label class="radio-label"><input type="radio" name="side" value="Փիթեր"><span>Փիթեր</span></label>
                     </div>
                 </div>
                 <div class="form-group">
