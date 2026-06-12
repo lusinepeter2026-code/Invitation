@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lusine & Peter - Wedding Invitation</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --container-bg: #1a1a1a;
+            --text-main: #f5f5f5;
+            --accent-gold: #c5a059;
+            --accent-dark: #8a6d3b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans Armenian', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Mobile-first container */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--container-bg);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+
+        .names-en {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Hero Image Section */
+        .hero {
+            position: relative;
+            width: 100%;
+        }
+        .hero img {
+            width: 100%;
+            display: block;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        /* Header / Names */
+        .header-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .header-section h1 {
+            font-size: 2.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            text-align: center;
+            padding: 20px;
+        }
+        .month-title {
+            letter-spacing: 3px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        .calendar-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+            color: #888;
+        }
+        .calendar-row .highlight {
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
+        }
+        .our-day {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Intro Text */
+        .intro-text {
+            text-align: center;
+            padding: 30px 40px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin: 20px 0;
+        }
+        .intro-text h3 {
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* Countdown */
+        .countdown-section {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .countdown-title {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 65px;
+        }
+        .time-box span.number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+        }
+        .time-box span.label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* Timeline / Itinerary */
+        .timeline-section {
+            padding: 40px 20px;
+            background-color: #161616;
+            text-align: center;
+        }
+        .section-title {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        .event {
+            margin-bottom: 40px;
+        }
+        .event-time {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+        .event-title {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+        .event-location {
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+        .map-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .map-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+        }
+
+        /* RSVP Form */
+        .rsvp-section {
+            padding: 40px 30px;
+            background-color: var(--container-bg);
+        }
+        .rsvp-desc {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #555;
+            color: #fff;
+            padding: 10px 0;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-bottom: 1px solid var(--accent-gold);
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .radio-label input {
+            margin-right: 10px;
+            accent-color: var(--accent-gold);
+            width: 18px;
+            height: 18px;
+        }
+        .submit-btn {
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* Gentle Reminders */
+        .reminders-section {
+            padding: 40px 20px 60px;
+            background-color: #121212;
+        }
+        .reminder-card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .reminder-num {
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+            min-width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .reminder-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        /* Decorative Divider */
+        .divider {
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 0 auto 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <div class="hero">
+        <img src="5287354133407013476.jpg" alt="Lusine and Peter">
+    </div>
+
+    <div class="header-section">
+        <h1 class="names-en">Lusine & Peter</h1>
+    </div>
+
+    <div class="calendar-section">
+        <div class="month-title">ՀՈԿՏԵՄԲԵՐ 2026</div>
+        <div class="calendar-row">
+            <span>22</span>
+            <span>23</span>
+            <div class="highlight">24</div>
+            <span>25</span>
+            <span>26</span>
+        </div>
+        <div class="our-day">մեր օրը</div>
+    </div>
+
+    <div class="intro-text">
+        <h3>ՍԻՐԵԼԻ ԸՆԿԵՐՆԵՐ ԵՎ ԲԱՐԵԿԱՄՆԵՐ</h3>
+        <p>Սիրով հրավիրում ենք Ձեզ կիսելու մեզ հետ մեր կյանքի ամենակարևոր և գեղեցիկ օրը: Անհամբերությամբ սպասում ենք Ձեզ:</p>
+    </div>
+
+    <div class="countdown-section">
+        <div class="countdown-title">ՄԻՆՉԵՎ ՀԱՐՍԱՆԻՔ ՄՆԱՑ</div>
+        <div class="timer-container">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">Օր</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Ժամ</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Րոպե</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Վայրկյան</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-section">
+        <h2 class="section-title">ԺԱՄԱՆԱԿԱՑՈՒՅՑ</h2>
+        
+        <div class="event">
+            <div class="event-time">16:00</div>
+            <div class="event-title">Պսակադրություն</div>
+            <div class="event-location">Սուրբ Ամենափրկիչ եկեղեցի</div>
+            <a href="https://www.google.com/maps/dir//Surb+Amenaprkich+Church,+7+%D4%B9%D5%B8%D6%82%D5%B4%D5%A1%D5%B6%D5%B5%D5%A1%D5%B6+%D6%83%D5%B8%D5%B2%D5%B8%D6%81,+%D5%86%D5%B8%D6%80+%D5%80%D5%A1%D5%B3%D5%B6+2412/@40.13818,44.5204209,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x406a9f076ac6bebd:0x3647500b6162c849!2m2!1d44.585332!2d40.3018438?entry=ttu&g_ep=EgoyMDI2MDYwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-btn">Քարտեզ</a>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="event">
+            <div class="event-time">17:30</div>
+            <div class="event-title">Հարսանյաց հանդես</div>
+            <div class="event-location">Love Garden ռեստորան</div>
+            <a href="https://www.google.com/maps/place/love+garden+restaurant/data=!4m2!3m1!1s0x406a9f252c4fea01:0x81ecf9ef99bc2750?sa=X&ved=1t:242&ictx=111" target="_blank" class="map-btn">Քարտեզ</a>
+        </div>
+    </div>
+
+    <div class="rsvp-section">
+        <h2 class="section-title" style="text-align: center;">ՀԱՐՑԱԹԵՐԹԻԿ</h2>
+        <p class="rsvp-desc">Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև Հոկտեմբերի 10-ը:</p>
+        
+        <form onsubmit="event.preventDefault(); alert('Շնորհակալություն! Ձեր պատասխանը գրանցված է:');">
+            <div class="form-group">
+                <label>Անուն Ազգանուն</label>
+                <input type="text" required placeholder="Մուտքագրեք Ձեր անունը">
+            </div>
+            
+            <div class="form-group">
+                <label>Հյուրերի քանակ</label>
+                <input type="number" min="1" required placeholder="Օրինակ՝ 2">
+            </div>
+
+            <div class="form-group">
+                <label>Ո՞ւմ կողմից եք հրավիրված</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="side" value="Lusine" required>
+                        <span class="names-en">Lusine</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="side" value="Peter">
+                        <span class="names-en">Peter</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Կկարողանա՞ք ներկա գտնվել միջոցառմանը</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="yes" required>
+                        Այո, իհարկե
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="no">
+                        Ցավոք, ոչ
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Ուղարկել</button>
+        </form>
+    </div>
+
+    <div class="reminders-section">
+        <h2 class="section-title" style="text-align: center;">ՍԻՐԵԼԻ ՀՅՈՒՐԵՐ</h2>
+        
+        <div class="reminder-card">
+            <div class="reminder-num">1</div>
+            <div class="reminder-text">
+                Խնդրում ենք ժամանել ճիշտ ժամանակին, որպեսզի բաց չթողնեք օրվա ամենակարևոր և հուզիչ պահերը:
+            </div>
+        </div>
+
+        <div class="reminder-card">
+            <div class="reminder-num">2</div>
+            <div class="reminder-text">
+                Սպիտակ և բաց երանգների զգեստները խնդրում ենք թողնել միայն հարսին: Շնորհակալություն ըմբռնման համար:
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Set the wedding date: October 24, 2026, 16:00:00
+    const weddingDate = new Date("Oct 24, 2026 16:00:00").getTime();
+
+    // Update the countdown every 1 second
+    const countdown = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        if (distance < 0) {
+            clearInterval(countdown);
+            document.getElementById("days").innerText = "00";
+            document.getElementById("hours").innerText = "00";
+            document.getElementById("minutes").innerText = "00";
+            document.getElementById("seconds").innerText = "00";
+            return;
+        }
+
+        // Time calculations for days, hours, minutes and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the results with leading zeros
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+    }, 1000);
+</script>
+
+</body>
+</html>
