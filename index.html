@@ -31,17 +31,7 @@
             -webkit-font-smoothing: antialiased;
             display: flex;
             justify-content: center;
-        }
-
-        /* Mobile-first container */
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            background-color: var(--container-bg);
-            min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
         h1, h2, h3 {
@@ -50,6 +40,114 @@
 
         .names-en {
             font-family: 'Playfair Display', serif;
+        }
+
+        /* ---------------- ENVELOPE OVERLAY ---------------- */
+        #envelope-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            background: #1e1e1e;
+            border: 2px solid var(--accent-gold);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:active {
+            transform: scale(0.95);
+        }
+
+        /* Envelope Flaps */
+        .envelope-flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 148px solid transparent;
+            border-right: 148px solid transparent;
+            border-top: 110px solid var(--accent-gold);
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out, z-index 0s 0.3s;
+            z-index: 3;
+        }
+
+        .envelope-flap-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 148px solid transparent;
+            border-right: 148px solid transparent;
+            border-bottom: 90px solid #2a2a2a;
+            z-index: 2;
+        }
+
+        /* Seal / Text on Envelope */
+        .envelope-seal {
+            position: absolute;
+            z-index: 4;
+            color: var(--bg-color);
+            background-color: var(--accent-gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Animation Classes */
+        .envelope-wrapper.open .envelope-flap-top {
+            transform: rotateX(180deg);
+            z-index: 1; /* Drop behind to simulate opening */
+        }
+        .envelope-wrapper.open .envelope-seal {
+            opacity: 0;
+        }
+
+        .instruction-text {
+            margin-top: 30px;
+            color: #888;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ---------------- MAIN APP CONTENT ---------------- */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--container-bg);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            display: none; /* Hidden until envelope opens */
+            opacity: 0;
+            transition: opacity 1s ease-in;
         }
 
         /* Hero Image Section */
@@ -178,6 +276,15 @@
         .event {
             margin-bottom: 40px;
         }
+        .event-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
         .event-time {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -273,6 +380,10 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #d8b471;
         }
 
         /* Gentle Reminders */
@@ -319,7 +430,16 @@
 </head>
 <body>
 
-<div class="app-container">
+<div id="envelope-overlay">
+    <div class="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope-flap-top"></div>
+        <div class="envelope-flap-bottom"></div>
+        <div class="envelope-seal">ԲԱՑԵԼ</div>
+    </div>
+    <div class="instruction-text">Սեղմեք ծրարի վրա</div>
+</div>
+
+<div class="app-container" id="main-content">
     
     <div class="hero">
         <img src="5287354133407013476.jpg" alt="Lusine and Peter">
@@ -372,6 +492,7 @@
         <h2 class="section-title">ԺԱՄԱՆԱԿԱՑՈՒՅՑ</h2>
         
         <div class="event">
+            <img src="church.jpg" alt="Church" class="event-img" onerror="this.style.display='none';"> 
             <div class="event-time">16:00</div>
             <div class="event-title">Պսակադրություն</div>
             <div class="event-location">Սուրբ Ամենափրկիչ եկեղեցի</div>
@@ -381,6 +502,7 @@
         <div class="divider"></div>
 
         <div class="event">
+            <img src="restaurant.jpg" alt="Restaurant" class="event-img" onerror="this.style.display='none';">
             <div class="event-time">17:30</div>
             <div class="event-title">Հարսանյաց հանդես</div>
             <div class="event-location">Love Garden ռեստորան</div>
@@ -392,15 +514,15 @@
         <h2 class="section-title" style="text-align: center;">ՀԱՐՑԱԹԵՐԹԻԿ</h2>
         <p class="rsvp-desc">Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև Հոկտեմբերի 10-ը:</p>
         
-        <form onsubmit="event.preventDefault(); alert('Շնորհակալություն! Ձեր պատասխանը գրանցված է:');">
+        <form onsubmit="sendWhatsApp(event)">
             <div class="form-group">
                 <label>Անուն Ազգանուն</label>
-                <input type="text" required placeholder="Մուտքագրեք Ձեր անունը">
+                <input type="text" id="guestName" required placeholder="Մուտքագրեք Ձեր անունը">
             </div>
             
             <div class="form-group">
                 <label>Հյուրերի քանակ</label>
-                <input type="number" min="1" required placeholder="Օրինակ՝ 2">
+                <input type="number" id="guestCount" min="1" required placeholder="Օրինակ՝ 2">
             </div>
 
             <div class="form-group">
@@ -431,7 +553,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">Ուղարկել</button>
+            <button type="submit" class="submit-btn">Ուղարկել (WhatsApp)</button>
         </form>
     </div>
 
@@ -456,10 +578,38 @@
 </div>
 
 <script>
+    // --- 1. Envelope Opening Animation ---
+    function openEnvelope() {
+        const wrapper = document.querySelector('.envelope-wrapper');
+        const overlay = document.getElementById('envelope-overlay');
+        const mainContent = document.getElementById('main-content');
+
+        // Add 'open' class to flip the flap
+        wrapper.classList.add('open');
+
+        // Wait for flap to animate, then fade out overlay
+        setTimeout(() => {
+            overlay.style.opacity = '0';
+            
+            // Wait for fade out, then hide overlay and show main website
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                // Slight delay to trigger CSS fade in
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 50);
+                
+            }, 800);
+        }, 600);
+    }
+
+
+    // --- 2. Countdown Timer ---
     // Set the wedding date: October 24, 2026, 16:00:00
     const weddingDate = new Date("Oct 24, 2026 16:00:00").getTime();
 
-    // Update the countdown every 1 second
     const countdown = setInterval(function() {
         const now = new Date().getTime();
         const distance = weddingDate - now;
@@ -473,19 +623,46 @@
             return;
         }
 
-        // Time calculations for days, hours, minutes and seconds
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Display the results with leading zeros
         document.getElementById("days").innerText = days < 10 ? "0" + days : days;
         document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
         document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
         document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
 
     }, 1000);
+
+
+    // --- 3. WhatsApp Form Submission ---
+    function sendWhatsApp(event) {
+        // Prevent default page reload on form submit
+        event.preventDefault(); 
+
+        // Get values from the form inputs
+        const name = document.getElementById('guestName').value;
+        const guests = document.getElementById('guestCount').value;
+        const sideInput = document.querySelector('input[name="side"]:checked');
+        const attendanceInput = document.querySelector('input[name="attendance"]:checked');
+        
+        const side = sideInput ? sideInput.value : '';
+        const attendanceValue = attendanceInput ? attendanceInput.value : '';
+        
+        // Translate attendance boolean to Armenian string
+        const attendanceText = attendanceValue === 'yes' ? 'Այո, իհարկե (Կներկայանամ)' : 'Ցավոք, ոչ (Չեմ կարող ներկայանալ)';
+
+        // Format the message using URL encoding spaces (%20) and line breaks (%0A)
+        const message = `Նոր պատասխան հրավերին:%0A%0A👤 Անուն Ազգանուն: ${encodeURIComponent(name)}%0A👥 Հյուրերի քանակ: ${guests}%0A💍 Ում կողմից: ${encodeURIComponent(side)}%0A✅ Ներկայություն: ${encodeURIComponent(attendanceText)}`;
+
+        // WhatsApp number
+        const phoneNumber = "37455343699";
+        
+        // Open WhatsApp API link
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    }
 </script>
 
 </body>
