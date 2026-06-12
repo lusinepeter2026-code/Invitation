@@ -231,7 +231,7 @@
             font-size: 0.95rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-family: 'Noto Serif Armenian', serif;
+            font-family: 'Playfair Display', serif;
             animation: pulse 2s infinite;
         }
 
@@ -271,16 +271,17 @@
         /* Header */
         .header-section { text-align: center; padding: 40px 20px 20px; }
         .header-section h1 {
-            font-size: 3.2rem; 
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem; 
             color: var(--accent-gold-dark);
             margin-bottom: 10px;
             text-shadow: 0 2px 5px rgba(197, 160, 89, 0.15);
-            font-weight: 600;
+            font-weight: normal;
         }
 
         /* Calendar */
         .calendar-section { text-align: center; padding: 20px; }
-        .month-title { letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; color: #444;}
+        .month-title { letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; color: #444; font-family: 'Playfair Display', serif;}
         .calendar-row {
             display: flex; justify-content: center; align-items: center; gap: 15px;
             font-size: 1.2rem; color: #777; font-family: 'Playfair Display', serif;
@@ -294,7 +295,7 @@
             transition: all 0.4s ease;
         }
         .calendar-row .highlight:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 6px 20px rgba(197, 160, 89, 0.6); }
-        .our-day { font-size: 1rem; color: var(--accent-gold-dark); margin-top: 15px; font-style: italic; font-family: 'Noto Serif Armenian', serif;}
+        .our-day { font-size: 1rem; color: var(--accent-gold-dark); margin-top: 15px; font-style: italic; font-family: 'Playfair Display', serif;}
 
         /* Intro Text */
         .intro-text {
@@ -507,7 +508,7 @@
         </div>
 
         <div class="header-section fade-in-up">
-            <h1 class="names-en">Peter & Lusine</h1>
+            <h1>Peter & Lusine</h1>
         </div>
 
         <div class="calendar-section fade-in-up">
@@ -577,8 +578,8 @@
                 <div class="form-group">
                     <label>Ո՞ւմ կողմից եք հրավիրված</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="side" value="Փիթեր" required><span>Փիթեր</span></label>
-                        <label class="radio-label"><input type="radio" name="side" value="Լուսինե"><span>Լուսինե</span></label>
+                        <label class="radio-label"><input type="radio" name="side" value="Փիթեր" required><span class="names-en">Փիթեր</span></label>
+                        <label class="radio-label"><input type="radio" name="side" value="Լուսինե"><span class="names-en">Լուսինե</span></label>
                     </div>
                 </div>
                 <div class="form-group">
