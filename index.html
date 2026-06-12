@@ -9,8 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    <script src="https://www.youtube.com/iframe_api"></script>
-
     <style>
         :root {
             --bg-color: #0d0d0d;
@@ -435,7 +433,7 @@
 </head>
 <body>
 
-<div id="youtube-audio"></div>
+<audio id="bg-music" src="music.mp3" loop preload="auto"></audio>
 
 <div id="envelope-overlay">
     <div class="envelope-wrapper">
@@ -561,29 +559,19 @@
 </div>
 
 <script>
-    // --- 1. YOUTUBE AUDIO ENGINE ---
-    let ytPlayer;
-    function onYouTubeIframeAPIReady() {
-        ytPlayer = new YT.Player('youtube-audio', {
-            height: '0',
-            width: '0',
-            // ==========================================
-            // PASTE YOUR 11-CHARACTER YOUTUBE VIDEO ID BELOW
-            // ==========================================
-            videoId: 'YOUR_VIDEO_ID_HERE', 
-            playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': 'YOUR_VIDEO_ID_HERE' }
-        });
-    }
-
-    // --- 2. ENVELOPE OPEN & PLAY AUDIO ---
+    // --- 1. ENVELOPE OPEN & PLAY NATIVE AUDIO ---
     function openEnvelope() {
         const wrapper = document.querySelector('.envelope-wrapper');
         const overlay = document.getElementById('envelope-overlay');
         const mainContent = document.getElementById('main-content');
         document.querySelector('.instruction-text').style.display = 'none';
 
-        if(ytPlayer && ytPlayer.playVideo) {
-            ytPlayer.playVideo();
+        // Play the native HTML5 audio file
+        const bgMusic = document.getElementById('bg-music');
+        if (bgMusic) {
+            bgMusic.play().catch(error => {
+                console.log("Audio playback failed. The browser might still be blocking it.", error);
+            });
         }
 
         wrapper.classList.add('open');
@@ -602,7 +590,7 @@
         }, 800);
     }
 
-    // --- 3. FALLING PARTICLES (HEARTS & FLOWERS) ---
+    // --- 2. FALLING PARTICLES (HEARTS & FLOWERS) ---
     function startParticles() {
         const container = document.getElementById('particles-container');
         const icons = ['🤍', '✨', '🌸', '🤍', '🥀', '✨']; 
@@ -620,7 +608,7 @@
         }, 400); 
     }
 
-    // --- 4. SCROLL ANIMATIONS ---
+    // --- 3. SCROLL ANIMATIONS ---
     document.addEventListener("DOMContentLoaded", function() {
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
@@ -635,7 +623,7 @@
         document.querySelectorAll('.fade-in-up').forEach((elem) => observer.observe(elem));
     });
 
-    // --- 5. ENHANCED COUNTDOWN TIMER ---
+    // --- 4. ENHANCED COUNTDOWN TIMER ---
     const weddingDate = new Date("Oct 24, 2026 16:00:00").getTime();
     const countdown = setInterval(function() {
         const now = new Date().getTime();
@@ -656,7 +644,7 @@
         document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
     }, 1000);
 
-    // --- 6. WHATSAPP FORM SUBMISSION ---
+    // --- 5. WHATSAPP FORM SUBMISSION ---
     function sendWhatsApp(event) {
         event.preventDefault(); 
         const name = document.getElementById('guestName').value;
